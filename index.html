@@ -9,7 +9,7 @@
 <meta name="keywords" content=""/>
 <meta name="author" content="Kizige Stephen"/>
 <meta name="copyright" content="Copyright &#169; 2017"/>
-<meta name="version" content="Version 2.0"/>
+<meta name="version" content="Version 2.5"/>
 <style>
 #currentTime {
   text-align: center;
@@ -119,16 +119,14 @@ h2 {
 .formLayout
 {
 font-family:arial;
- size:14px;
-background-color: lightgreen;
-border: solid 2px #a1a1a1;
+
+
 padding: 30px;
-width: 250px;
+
 }
 .formLayout label, .formLayout input
 {
 display: block;
-width: 250px;
 float: left;
 margin-bottom: 20px;
 }
@@ -165,6 +163,75 @@ text-align: left;
 br
 {
 clear: left;
+}
+
+  * {
+  box-sizing: border-box;
+}
+
+.container {
+  background:#d3efdf;
+  padding:25px;
+  max-width:760px;
+  margin:25px auto;
+  overflow:hidden;
+  border-radius:10px;
+  border:4px solid #b1c9bb;
+  font-family: sans-serif;
+}
+
+h1, h2 {
+  margin:0;
+  text-align:center;
+  text-transform:uppercase;
+ 
+}
+
+h2 {
+  font-size:20px;
+  text-align:center;
+  border-bottom:1px solid #b1c9bb;
+  padding: 0 0 10px;
+  color:#57635c;
+    
+}
+
+.new-task-container {
+  text-align:center;
+}
+
+.box {
+  padding:10px 15px;
+  border:2px solid #b1c9bb;
+  border-radius:5px;
+  background:#FFF;
+  margin:15px 0;
+}
+
+
+.todo-list {
+  float:left;
+  width:46%;
+}
+
+.complete-list {
+  float:right;
+  width:46%;
+}
+
+ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+li{
+  padding:10px;
+  border-bottom:1px dotted #CCC;
+}
+
+.delete {
+  float:right;
 }
 </style>
 
@@ -331,15 +398,44 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 <br/>
 <!--To-do List display-->
 <div class="container">
-  <form  action="#">
-    <input type="text" name="item" id="item" placeholder="Add New Task" />
-</form>
-<ul id="list"></ul>
+  <h1>To-Do App</h1>
+  
+  <div class="new-task-container box">
+  
+  <label for="new-task">Add New Task</label>
+  <input type="text" id="new-task">
+    <button id="addTask">Add Task</button>
+  
+  </div>
+  
+  <div class="todo-list box">
+  
+    <h2>Incomplete Tasks</h2>
+	All your incomplete tasks will appear here
+    <ul>
+      <!--<li><input type="checkbox"><label>Task Name</lable></li>
+      <li><input type="checkbox"><label>Task Name</lable></li>
+      <li><input type="checkbox"><label>Task Name</lable></li>-->
+    </ul>
+  
+  </div><!--/todo-list-->
+  
+  <div class="complete-list box">
+    
+    <h2>Completed Tasks</h2>
+	All your complete tasks will appear here
+    <ul>
+      <!--<li>Task Name <button class="delete">Delete</button></li>-->
+
+    </ul>
+    
+    
+  </div>
 
 </div>
 
 <!--Calculator display-->
-  <div id="mats">
+ <div class="container">
 <table>
     <tr><td align ='center'><b>Calculator:</b></td></tr>
     <tr><td><input type='text' id='fff' placeholder='Enter Number'></td></tr>
@@ -351,7 +447,7 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
           <tr id="answer"></tr>
     </table>
     </div>
-	
+<div class="container">	
   <div id="mats">
 <table>
     <tr><td><b>Case Changer:</b></td></tr>
@@ -384,7 +480,8 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 <div id="footer">
    
 <script type="text/javascript">
-    function doOddsConversions(e,t){var n,o=t.replace(/^txt/i,""),a=document.getElementById("txtUS"),r=document.getElementById("txtDec"),d=document.getElementById("txtFrac"),u=document.getElementById("txtProb"),c=document.getElementById("txtHK"),m=document.getElementById("txtIndo"),i=document.getElementById("txtMalay");if(e.match(/^Ev.*$/i)&&(e=2,o="Dec"),"US"==o)n=US2dec(e);else if("Dec"==o)0>1*e&&(e=Math.abs(1*e)),1>1*e&&(e=1),n=parseFloat(e).toFixed(4);else if("Frac"==o){var l=""+e;l.match(/\//)||(l+="/1"),n=frac2dec(l)}else if("Prob"==o){var l=""+e;e=fmtNumber(l),e>=1&&(e/=100),n=prob2dec(e)}else"HK"==o?n=HK2dec(e):"Indo"==o?n=Indo2dec(e):"Malay"==o&&(n=Malay2dec(e));a.value=dec2US(n),r.value=n,d.value=dec2frac(n),u.value=dec2prob(n),c.value=dec2HK(n),m.value=dec2Indo(n),i.value=dec2Malay(n)}function dec2US(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:2>e?-100/(e-1):100*(e-1),(t>0?"+":"")+Math.round(100*t)/100}function US2dec(e){var t;return e=parseFloat(e),t=Math.abs(e)<100||0/0==e?0/0:e>0?1+e/100:1-100/e,t.toFixed(4)}function dec2frac(e){e=parseFloat(e-1);var t=Math.round(e)+"/1",n=Math.round(e),o=Math.abs(n-e);for(i=2;i<=200;i++){var a=Math.round(e*i)/i,r=Math.abs(a-e);if(o>r){if(t=Math.round(e*i)+"/"+i,n=a,0==r)break;o=r}}return t}function frac2dec(e){var t=e.split(/\//);return t[1]=void 0==t[1]?1:t[1],(t[0]/t[1]+1).toFixed(4)}function prob2dec(e){return(1/fmtNumber(e)).toFixed(4)}function dec2prob(e){return fmtPercent(1/e)}function HK2dec(e){var t;return e=parseFloat(e),t=0>=e||0/0==e?0/0:e+1,t.toFixed(4)}function dec2HK(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:e-1,t.toFixed(4)}function Indo2dec(e){var t;return e=parseFloat(e),t=0/0==e||Math.abs(e)<1?0/0:e>=1?e+1:1-1/e,t.toFixed(4)}function dec2Indo(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:e>=2?e-1:1/(1-e),t.toFixed(4)}function Malay2dec(e){var t;return e=parseFloat(e),t=0/0==e||e>1||0==e?0/0:e>0?e+1:1-1/e,t.toFixed(4)}function dec2Malay(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:2>=e?e-1:1/(1-e),t.toFixed(4)}function fmtNumber(e){return e=""+e,e=e.replace(/\$/g,""),myNum=e.replace(/\,/g,""),e.match(/\%$/g,"")&&(myNum=e.replace(/\%$/g,""),mynum=parseFloat(myNum)/100),1*myNum}function fmtPercent(e){return(""+e).match(/\%$/g,"")&&(e=e.replace(/\%$/g,""),e/=100),(100*e).toFixed(2)+"%"}function addCommas(e){e+="";for(var t=e.split("."),n=t[0],o=t.length>1?"."+t[1]:"",a=/(\d+)(\d{3})/;a.test(n);)n=n.replace(a,"$1,$2");return n+o}function autofitIframe(e){return null==parent.document.getElementById(e)?-1:(!window.opera&&!document.mimeType&&document.all&&document.getElementById?parent.document.getElementById(e).style.height=this.document.body.offsetHeight+"px":document.getElementById&&(navigator.userAgent.indexOf("Firefox")>=0&&(parent.document.getElementById(e).style.height="1px"),parent.document.getElementById(e).style.height=this.document.body.scrollHeight+"px"),void("0px"==parent.document.getElementById(e).style.height&&setTimeout('autofitIframe("'+e+'")',250)))}function AutoFitMe(){-1==autofitIframe("OddsIFrame")&&autofitIframe("ToolIFrame")}function autofitIframe(e){return null==parent.document.getElementById(e)?-1:(!window.opera&&!document.mimeType&&document.all&&document.getElementById?parent.document.getElementById(e).style.height=this.document.body.offsetHeight+"px":document.getElementById&&(navigator.userAgent.indexOf("Firefox")>=0&&(parent.document.getElementById(e).style.height="1px"),parent.document.getElementById(e).style.height=this.document.body.scrollHeight+"px"),void("0px"==parent.document.getElementById(e).style.height&&setTimeout('autofitIframe("'+e+'")',250)))}</script>
+function doOddsConversions(e,t){var n,o=t.replace(/^txt/i,""),a=document.getElementById("txtUS"),r=document.getElementById("txtDec"),d=document.getElementById("txtFrac"),u=document.getElementById("txtProb"),c=document.getElementById("txtHK"),m=document.getElementById("txtIndo"),i=document.getElementById("txtMalay");if(e.match(/^Ev.*$/i)&&(e=2,o="Dec"),"US"==o)n=US2dec(e);else if("Dec"==o)0>1*e&&(e=Math.abs(1*e)),1>1*e&&(e=1),n=parseFloat(e).toFixed(4);else if("Frac"==o){var l=""+e;l.match(/\//)||(l+="/1"),n=frac2dec(l)}else if("Prob"==o){var l=""+e;e=fmtNumber(l),e>=1&&(e/=100),n=prob2dec(e)}else"HK"==o?n=HK2dec(e):"Indo"==o?n=Indo2dec(e):"Malay"==o&&(n=Malay2dec(e));a.value=dec2US(n),r.value=n,d.value=dec2frac(n),u.value=dec2prob(n),c.value=dec2HK(n),m.value=dec2Indo(n),i.value=dec2Malay(n)}function dec2US(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:2>e?-100/(e-1):100*(e-1),(t>0?"+":"")+Math.round(100*t)/100}function US2dec(e){var t;return e=parseFloat(e),t=Math.abs(e)<100||0/0==e?0/0:e>0?1+e/100:1-100/e,t.toFixed(4)}function dec2frac(e){e=parseFloat(e-1);var t=Math.round(e)+"/1",n=Math.round(e),o=Math.abs(n-e);for(i=2;i<=200;i++){var a=Math.round(e*i)/i,r=Math.abs(a-e);if(o>r){if(t=Math.round(e*i)+"/"+i,n=a,0==r)break;o=r}}return t}function frac2dec(e){var t=e.split(/\//);return t[1]=void 0==t[1]?1:t[1],(t[0]/t[1]+1).toFixed(4)}function prob2dec(e){return(1/fmtNumber(e)).toFixed(4)}function dec2prob(e){return fmtPercent(1/e)}function HK2dec(e){var t;return e=parseFloat(e),t=0>=e||0/0==e?0/0:e+1,t.toFixed(4)}function dec2HK(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:e-1,t.toFixed(4)}function Indo2dec(e){var t;return e=parseFloat(e),t=0/0==e||Math.abs(e)<1?0/0:e>=1?e+1:1-1/e,t.toFixed(4)}function dec2Indo(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:e>=2?e-1:1/(1-e),t.toFixed(4)}function Malay2dec(e){var t;return e=parseFloat(e),t=0/0==e||e>1||0==e?0/0:e>0?e+1:1-1/e,t.toFixed(4)}function dec2Malay(e){var t;return e=parseFloat(e),t=1>=e||0/0==e?0/0:2>=e?e-1:1/(1-e),t.toFixed(4)}function fmtNumber(e){return e=""+e,e=e.replace(/\$/g,""),myNum=e.replace(/\,/g,""),e.match(/\%$/g,"")&&(myNum=e.replace(/\%$/g,""),mynum=parseFloat(myNum)/100),1*myNum}function fmtPercent(e){return(""+e).match(/\%$/g,"")&&(e=e.replace(/\%$/g,""),e/=100),(100*e).toFixed(2)+"%"}function addCommas(e){e+="";for(var t=e.split("."),n=t[0],o=t.length>1?"."+t[1]:"",a=/(\d+)(\d{3})/;a.test(n);)n=n.replace(a,"$1,$2");return n+o}function autofitIframe(e){return null==parent.document.getElementById(e)?-1:(!window.opera&&!document.mimeType&&document.all&&document.getElementById?parent.document.getElementById(e).style.height=this.document.body.offsetHeight+"px":document.getElementById&&(navigator.userAgent.indexOf("Firefox")>=0&&(parent.document.getElementById(e).style.height="1px"),parent.document.getElementById(e).style.height=this.document.body.scrollHeight+"px"),void("0px"==parent.document.getElementById(e).style.height&&setTimeout('autofitIframe("'+e+'")',250)))}function AutoFitMe(){-1==autofitIframe("OddsIFrame")&&autofitIframe("ToolIFrame")}function autofitIframe(e){return null==parent.document.getElementById(e)?-1:(!window.opera&&!document.mimeType&&document.all&&document.getElementById?parent.document.getElementById(e).style.height=this.document.body.offsetHeight+"px":document.getElementById&&(navigator.userAgent.indexOf("Firefox")>=0&&(parent.document.getElementById(e).style.height="1px"),parent.document.getElementById(e).style.height=this.document.body.scrollHeight+"px"),void("0px"==parent.document.getElementById(e).style.height&&setTimeout('autofitIframe("'+e+'")',250)))}</script>
+<div class="container">
 <table id="tblMain" class="mainTable" style="max-width:500px">
 <tbody>
 <tr>
@@ -472,6 +569,7 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 </tr>
 </tbody>
 </table>
+</div>
 
   <br/> <br/>
     <br/><br/>
@@ -532,6 +630,7 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 
 </form>
 <br/>
+<div class="container">
  <div class="formLayout">
 <form name=form_vowel>
 <h4>Remove Vowels </h4>
@@ -542,8 +641,9 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 <input type="button" value="Remove" onClick='execute_program()'>
 </form>
 </div>
+</div>
 <br/>
-
+<div class="container">
  <h1>Random Password Generator</h1>
 		<form action="#" method="get" onsubmit="doGenerate(event);">
 			<div id="charset" class="section" style="margin:0.8em 0em">
@@ -579,14 +679,14 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 			</p>
 
 	</form>
-
+</div><!--
 <div>
     <textarea name="text-to-copy" id="text-to-copy" cols="30" rows="10" placeholder="Paste it here"></textarea>
 	    <button id="copy-text">Copy</button>
     <span id="copied-text" style="display: none;">Copied!</span>
 </div>
 		
-		
+		-->
 		<!--==== JavaScript code ====-->
 		
 		<script type="text/javascript">
@@ -1449,7 +1549,128 @@ document.getElementById('copy-text').addEventListener('click', function(e){
 }());
 </script> 
  
- 
+ <script>
+  //SELECT ELEMENTS AND ASSIGN THEM TO VARS
+var newTask = document.querySelector('#new-task');
+var addTaskBtn = document.querySelector('#addTask');
+
+var toDoUl = document.querySelector(".todo-list ul");
+var completeUl =  document.querySelector(".complete-list ul");
+
+
+//CREATE FUNCTIONS
+
+//CREATING THE ACTUAL TASK LIST ITEM
+var createNewTask = function(task){
+  console.log("Creating task...");
+  
+  //SET UP THE NEW LIST ITEM
+  var listItem = document.createElement("li"); //<li>
+  var checkBox = document.createElement("input"); //checkbox
+  var label = document.createElement("label"); // <label>
+  
+  
+  //PULL THE INPUTED TEXT INTO LABEL
+  label.innerText = task;
+  
+  //ADD PROPERTIES
+  checkBox.type = "checkbox";
+  
+  //ADD ITEMS TO THE LI
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
+  //EVERYTHING PUT TOGETHER
+  return listItem;  
+  
+};
+
+//ADD THE NEW TASK INTO ACTUAL INCOMPLETE LIST
+var addTask = function(){
+  console.log("Adding task...");
+  //FOR CLARITY, GRAB THE INPUTTED TEXT AND STORE IT IN A VAR
+  var listItem = createNewTask(newTask.value);
+  //ADD THE NEW LIST ITEM TO LIST
+  toDoUl.appendChild(listItem); 
+  //CLEAR THE INPUT
+  newTask.value="";
+  
+  //BIND THE NEW LIST ITEM TO THE INCOMPLETE LIST
+  bindIncompleteItems(listItem, completeTask);
+
+};
+
+var completeTask = function(){
+  
+  //GRAB THE CHECKBOX'S PARENT ELEMENT, THE LI IT'S IN
+  var listItem = this.parentNode;
+  
+  //CREATE AND INSERT THE DELETE BUTTON
+  var deleteBtn = document.createElement("button"); // <button>
+  deleteBtn.innerText ="Delete"; 
+  deleteBtn.className = "delete";
+  listItem.appendChild(deleteBtn);
+  
+  //SELECT THE CHECKBOX FROM THE COMPLETED CHECKBOX AND REMOVE IT
+  var checkBox = listItem.querySelector("input[type=checkbox]");
+  checkBox.remove();
+  
+  //PLACE IT INSIDE THE COMPLETED LIST
+  completeUl.appendChild(listItem); 
+  
+  //BIND THE NEW COMPLETED LIST
+  bindCompleteItems(listItem, deleteTask);
+  
+};
+
+//DELETE TASK FUNCTIONS
+var deleteTask = function(){
+  console.log("Deleting task...");
+  
+  var listItem = this.parentNode;
+  var ul = listItem.parentNode;
+  
+  ul.removeChild(listItem);
+  
+};
+
+//A FUNCTION THAT BINDS EACH OF THE ELEMENTS THE INCOMPLETE LIST
+
+var bindIncompleteItems = function(taskItem, checkBoxClick){  
+  console.log("Binding the incomplete list...");
+  
+  //BIND THE CHECKBOX TO A VAR
+  var checkBox = taskItem.querySelector("input[type=checkbox]");
+  
+  //SETUP EVENT LISTENER FOR THE CHECKBOX
+  checkBox.onchange = checkBoxClick;  
+}; 
+
+
+//A FUNCTIONM THAT BINDS EACH OF THE ELEMTS IN THE COMPLETE LIST
+var bindCompleteItems = function(taskItem, deleteButtonPress){
+  console.log("Binding the complete list...");
+  
+  //BIND THE DELETE BUTTON
+  var deleteButton = taskItem.querySelector(".delete");
+   
+  //WHEN THE DELETE BUTTIN IS PRESSED, RUN THE deleteTask function
+  deleteButton.onclick = deleteButtonPress;
+    
+};
+
+
+for(var i=0; i < toDoUl.children.length; i++) {
+  bindIncompleteItems(toDoUl.children[i], completeTask);
+}
+
+for(var i=0; i < completeUl.children.length; i++) {
+  bindCompleteItems(completeUl.children[i], deleteTask);
+}
+
+
+addTaskBtn.addEventListener("click", addTask);
+
+</script>
  
  
     <!--
@@ -1459,7 +1680,7 @@ document.getElementById('copy-text').addEventListener('click', function(e){
     <div id="navi">
 <p style="text-align:center;"><a href="#tile">Top</a></p>
 </div><!--end #navi-->
-<p>&#169; 2019 Steith</p>
+<p style="text-align:center;">&#169; 2019 Steith</p>
 </div><!--end #footer-->
 </div><!--end#wrapper-->
 </body>
