@@ -370,14 +370,7 @@ getMessage()
     <br/>
     <!--display time-->
 <div id="currentTime"></div>
-	<div>
-<p class="timer">
-                    <span id="days"></span> Day(s)
-                    <span id="hours"></span> Hour(s)
-                    <span id="minutes"></span > Minute(s)
-                    <span id="seconds"></span> Second(s)
-                </p>
-		</div>
+
 <!--introduction-->
 <div id="intro">
 About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
@@ -390,8 +383,13 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 <input type="submit" value="Search" />
 </form>
 </div>
-
-	
+<br/>
+<!--Time countdown-->
+<div>
+<input type="text" id="hms" placeholder="enter in the format 00:00:00 " />
+	<input type="button" id="dl" value="Start" />
+	<div id="count"></div>
+	</div>
 <!--Javascript content display-->
 <a name="ticf" ></a>
 <div id="techicf" style="text-align:left;"> </div>
@@ -1502,56 +1500,8 @@ document.getElementById('copy-text').addEventListener('click', function(e){
 });
 </script>
 	//Count down timer
- <script >
-	function countdown(endDate) {
-  let timer, days, hours, minutes, seconds;
-  
-  endDate = new Date(endDate).getTime();
 
-  if (isNaN(endDate)) {
-    return;
-  }
-  
-  timer = setInterval(calculate, 1000);
 
-  function calculate() {
-    let startDate = new Date();
-    
-    startDate = new Date(startDate.getUTCFullYear(),
-      startDate.getUTCMonth(),
-      startDate.getUTCDate(),
-      startDate.getUTCHours(),
-      startDate.getUTCMinutes(),
-      startDate.getUTCSeconds());
-    
-    let timeRemaining = parseInt((endDate - startDate.getTime()) / 1000);
-
-    if (timeRemaining >= 0) {
-      days            = parseInt(timeRemaining / 86400);
-      timeRemaining   = (timeRemaining % 86400);
-
-      hours           = parseInt(timeRemaining / 3600);
-      timeRemaining   = (timeRemaining % 3600);
-
-      minutes         = parseInt(timeRemaining / 60);
-      timeRemaining   = (timeRemaining % 60);
-
-      seconds         = parseInt(timeRemaining);
-
-      document.getElementById("days").innerHTML    = parseInt(days, 10);
-      document.getElementById("hours").innerHTML   = ("0" + hours).slice(-2);
-      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
-      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
-    } else {
-      return;
-    }
-  }
-}
-
-(function () { 
-  countdown('03/04/2020 05:00:00 PM'); 
-}());
-</script> 
  
  <script>
   //SELECT ELEMENTS AND ASSIGN THEM TO VARS
@@ -1675,7 +1625,58 @@ for(var i=0; i < completeUl.children.length; i++) {
 addTaskBtn.addEventListener("click", addTask);
 
 </script>
- 
+ <script> 
+// Wait for user to click the button before reading the value
+window.onload=function(){
+	var work = document.getElementById("dl");
+	work.addEventListener("click", handler);
+}
+ function handler() {
+
+    //taking user input
+    var time1 = document.getElementById('hms').value;
+    //splitting it to seperate variables
+    var pieces = time1.split(":");
+
+    var hours = pieces[0];
+    var minutes = pieces[1];
+    var seconds = pieces[2];
+    var time = {
+        hours: hours * 1,
+        minutes: minutes * 1,
+        seconds: seconds * 1
+    };
+    // Save the interval's handle to `timer`
+    var timer = setInterval(countdown, 1000);
+
+    function countdown() {
+        var container = document.getElementById('count');
+
+        if (time.seconds > 0) {
+            time.seconds--;
+        }
+        else {
+            if (time.minutes > 0) {
+                time.minutes--;
+                time.seconds = 60;
+            }
+            else {
+                time.minutes = 60;
+                time.seconds = 60;
+                time.hours--;
+            }
+        }
+
+        if (time.hours >= 0) {
+            container.innerHTML = 'Please wait <b>' + time.hours + '</b> hours, <b>' + time.minutes + '</b> minutes, <b>' + time.seconds + '</b> seconds';
+        }
+        else {
+            container.innerHTML = 'Time over';
+            clearInterval(timer);
+        }
+    }
+}
+</script>
  
     <!--
     //bbc.com JSON.stringify([...document.querySelectorAll('a.media__link')].map(r => r.textContent))
