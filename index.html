@@ -1673,6 +1673,9 @@ window.onload=function(){
         else {
             container.innerHTML = 'Time over';
             clearInterval(timer);
+	    var sound = new Audio("https://themamaship.com/music/Catalog/Could%20You%20Be%20Loved_.mp3");
+	    sound.play();
+		
         }
     }
 }
