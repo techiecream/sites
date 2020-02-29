@@ -390,6 +390,115 @@ About this Page.<a href="javascript:void(0);" onClick="intro();">Click</a>
 <input type="submit" value="Search" />
 </form>
 </div>
+//hourly Countdown timer
+<script> 
+// Wait for user to click the button before reading the value
+window.onload=function(){
+	var work = document.getElementById("dl");
+	work.addEventListener("click", handler);
+}
+function handler() {
+	
+		//taking user input
+		var time1 = document.getElementById('hms').value;
+		//splitting it to seperate variables
+		var pieces = time1.split(":");
+		
+		var hours = pieces[0];
+		var minutes = pieces[1];
+		var seconds = pieces[2];
+		
+		//just calculating total number of seconds
+		seconds = seconds + minutes*60 + hours*3600;
+		
+		var tot = seconds + minutes*60 + hours*3600;
+		
+		// Save the interval's handle to `timer`
+		var timer = setInterval(countdown, 1000);
+
+		function countdown() {
+		var container = document.getElementById('count');
+		
+		var counter = 0, k=1, j=1, i=0, s1= pieces[2];
+		
+		//loop to print the timer 
+		for(i=0; i<tot; i++){
+			if(seconds>0){
+			counter ++ ;
+
+			if(counter==60*k){
+				minutes--;
+				k++;
+			}
+			if(counter==3600*j){
+				hours--;
+				j++;
+			}
+			
+			container.innerHTML = 'Please wait <b>' + hours + '</b> hours, <b>' + minutes + '</b> minutes, <b>' + seconds + '</b> seconds';
+			}//end of if
+			else {
+			container.innerHTML = 'Time over';
+			clearInterval(timer);
+			}
+		}
+	
+		}
+	}
+
+ function handler() {
+
+    //taking user input
+    var time1 = document.getElementById('hms').value;
+    //splitting it to seperate variables
+    var pieces = time1.split(":");
+
+    var hours = pieces[0];
+    var minutes = pieces[1];
+    var seconds = pieces[2];
+    var time = {
+        hours: hours * 1,
+        minutes: minutes * 1,
+        seconds: seconds * 1
+    };
+    // Save the interval's handle to `timer`
+    var timer = setInterval(countdown, 1000);
+
+    function countdown() {
+        var container = document.getElementById('count');
+
+        if (time.seconds > 0) {
+            time.seconds--;
+        }
+        else {
+            if (time.minutes > 0) {
+                time.minutes--;
+                time.seconds = 60;
+            }
+            else {
+                time.minutes = 60;
+                time.seconds = 60;
+                time.hours--;
+            }
+        }
+
+        if (time.hours >= 0) {
+            container.innerHTML = 'Please wait <b>' + time.hours + '</b> hours, <b>' + time.minutes + '</b> minutes, <b>' + time.seconds + '</b> seconds';
+        }
+        else {
+            container.innerHTML = 'Time over';
+            clearInterval(timer);
+        }
+    }
+}
+
+
+</script>
+
+<input type="text" id="hms" placeholder="enter in the format 00:00:00 " />
+	<input type="button" id="dl" value="Start" />
+	<div id="count"></div>	
+	
 <!--Javascript content display-->
 <a name="ticf" ></a>
 <div id="techicf" style="text-align:left;"> </div>
